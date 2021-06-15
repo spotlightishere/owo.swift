@@ -5,11 +5,12 @@ import PackageDescription
 
 let package = Package(
     name: "owo.swift",
+    // TODO: Wait until apple/swift-package-manager#3538 makes it into a release
     platforms: [
-        .macOS(.v11),
-        .iOS(.v14),
-        .tvOS(.v14),
-        .watchOS(.v7),
+        .macOS("12.0"),
+        .iOS("15.0"),
+        .tvOS("15.0"),
+        .watchOS("8.0"),
     ],
     products: [
         // Products define the executables and libraries a package produces, and make them visible to other packages.

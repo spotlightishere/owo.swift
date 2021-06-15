@@ -10,7 +10,6 @@ import Foundation
 
 /// Easily utilize the OwO Beta API to upload files,
 /// shorten links, and list/delete associated files.
-@available(macOS 12, iOS 15, *)
 public class OwOSwift {
     /// The token used to authenticate a user with.
     private var token: String

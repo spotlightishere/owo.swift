@@ -8,7 +8,6 @@
 import Alamofire
 import Foundation
 
-@available(macOS 12, iOS 15, *)
 public extension DataRequest {
     func handle<Value: Decodable>(type givenType: Value.Type = Value.self) async throws -> Value {
         // Check success first.
