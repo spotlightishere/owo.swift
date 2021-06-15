@@ -10,8 +10,27 @@ import Foundation
 
 public enum APIError: Error {
     case connectionError(reason: String)
-    case serviceError(reason: String)
+    case serviceError(errorCode: Int, reason: String)
     case invalidToken
+}
+
+struct Base: Codable {
+    var success: Bool
+}
+
+struct ErrorInfo: Codable {
+    var errorCode: Int
+    var description: String
+    
+    enum CodingKeys: String, CodingKey {
+        case description
+        case errorCode = "errorcode"
+    }
+}
+
+struct User: Codable {
+    var success: Bool
+    let user: UserInfo
 }
 
 struct UserInfo: Codable {
@@ -26,19 +45,5 @@ struct UserInfo: Codable {
         case userId = "user_id"
         case isAdmin = "is_admin"
         case isBlocked = "is_blocked"
-    }
-}
-
-// TODO: Is there a better way to inherit the
-// success/errorCode/description types instead of copying to all?
-struct User: Codable {
-    var success: Bool
-    var errorCode: Int?
-    var description: String?
-    let user: UserInfo?
-    
-    enum CodingKeys: String, CodingKey {
-        case success, description, user
-        case errorCode = "errorcode"
     }
 }

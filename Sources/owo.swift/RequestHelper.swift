@@ -11,14 +11,35 @@ import Foundation
 @available(macOS 12, iOS 15, *)
 extension DataRequest {
     public func handle<Value: Decodable>(type givenType: Value.Type = Value.self) async throws -> Value {
-        let response = await self.decode(givenType).response
-        print(response)
+        // Check success first.
+        let initialResponse = await self.decode(Base.self).response
+        var successBody: Base
         
-        switch (response.result) {
+        switch (initialResponse.result) {
         case .success(let parsedValue):
-            return parsedValue
+            successBody = parsedValue
         case .failure(let error):
             throw error
+        }
+        
+        if successBody.success == false {
+            let errorResponse = await self.decode(ErrorInfo.self).response
+            
+            switch (errorResponse.result) {
+            case .success(let parsedValue):
+                throw APIError.serviceError(errorCode: parsedValue.errorCode, reason: parsedValue.description)
+            case .failure(let error):
+                throw error
+            }
+        } else {
+            let initialResponse = await self.decode(givenType).response
+            
+            switch (initialResponse.result) {
+            case .success(let parsedValue):
+                return parsedValue
+            case .failure(let error):
+                throw error
+            }
         }
     }
 }

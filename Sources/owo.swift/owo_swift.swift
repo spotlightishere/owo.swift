@@ -37,23 +37,8 @@ public class OwOSwift {
     }
 
     public func getUser() async throws {
-        let user: User
-        
-        do {
-            user = try await AF.request(route(for: "/users/me"), method: .get, headers: ["Authorization": token]).handle(type: User.self)
-        } catch (let e) {
-            throw e
-        }
-
-        if user.success == false {
-            // We're given 401 unauthorized if such is true
-            if user.errorCode == 401 {
-                throw APIError.invalidToken
-            } else {
-                throw APIError.serviceError(reason: "API returned \(user.errorCode!): \(user.description!)")
-            }
-        }
-        
+        let user = try await AF.request(route(for: "/users/me"), method: .get, headers: ["Authorization": token]).handle(type: User.self)
+        print(user)
         print("success!")
     }
 }
