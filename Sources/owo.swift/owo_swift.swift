@@ -27,15 +27,24 @@ public class OwOSwift {
         self.token = token
     }
 
-    /// getRoute returns the base API domain concatenated with the specified route.
+    /// Returns the base API domain concatenated with the specified route.
     /// - Parameter routePath: The string of the path intended to be concatenated.
     /// - Returns: A usable URL for the given route.
     private func route(for path: String) -> String {
         "\(apiDomain)\(path)"
     }
 
+    /// Returns necessary headers for interacting with the API.
+    /// - Returns: The proper Authorization and User-Agent for this request.
+    private func getHeaders() -> HTTPHeaders {
+        [
+            "Authorization": token,
+            "User-Agent": defaultUserAgent,
+        ]
+    }
+
     public func getUser() async throws {
-        let user = try await AF.request(route(for: "/users/me"), method: .get, headers: ["Authorization": token]).handle(type: User.self)
+        let user = try await AF.request(route(for: "/users/me"), method: .get, headers: getHeaders()).handle(type: User.self)
         print(user)
         print("success!")
     }

@@ -28,12 +28,12 @@ struct ErrorInfo: Codable {
     }
 }
 
-struct User: Codable {
-    var success: Bool
+public struct User: Codable {
     let user: UserInfo
 }
 
-struct UserInfo: Codable {
+/// UserInfo describes
+public struct UserInfo: Codable {
     var userId: String
     var username: String
     var email: String
