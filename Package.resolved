@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Alamofire",
+        "repositoryURL": "https://github.com/Alamofire/Alamofire.git",
+        "state": {
+          "branch": "feature/async-handlers",
+          "revision": "df95b65c9b178941b24a1e4b21c985e669b06588",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

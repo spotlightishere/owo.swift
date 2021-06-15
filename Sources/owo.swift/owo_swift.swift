@@ -20,20 +20,19 @@ public class OwOSwift {
     public var fileDomain = defaultUploadDomain
     /// The domain to append when shortening links.
     public var shortenDomain = defaultShortenDomain
-    
-    
+
     /// Initializes a usable OwOSwift object with the given token.
     /// All default domains are used, and the default API domain is set.
     /// - Parameter token: The token to authenticate the with.
-    public init(with token: String){
+    public init(with token: String) {
         self.token = token
     }
-    
+
     /// getRoute returns the base API domain concatenated with the specified route.
     /// - Parameter routePath: The string of the path intended to be concatenated.
     /// - Returns: A usable URL for the given route.
     private func route(for path: String) -> String {
-        return "\(apiDomain)\(path)"
+        "\(apiDomain)\(path)"
     }
 
     public func getUser() async throws {

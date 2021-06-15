@@ -1,6 +1,6 @@
 //
 //  Structures.swift
-//  
+//
 //
 //  Created by Spotlight Deveaux on 2021-06-13.
 //
@@ -21,7 +21,7 @@ struct Base: Codable {
 struct ErrorInfo: Codable {
     var errorCode: Int
     var description: String
-    
+
     enum CodingKeys: String, CodingKey {
         case description
         case errorCode = "errorcode"
@@ -39,7 +39,7 @@ struct UserInfo: Codable {
     var email: String
     var isAdmin: Bool
     var isBlocked: Bool
-    
+
     enum CodingKeys: String, CodingKey {
         case username, email
         case userId = "user_id"
