@@ -11,14 +11,14 @@ import Foundation
 public extension DataResponse {
     func getSuccess<Value: Decodable>() throws -> Value {
         var result: Value
-        
+
         switch self.result {
         case let .success(parsedValue):
             result = parsedValue as! Value
         case let .failure(error):
             throw error
         }
-        
+
         return result
     }
 }
@@ -30,6 +30,7 @@ public extension DataRequest {
         let successBody: Base = try initialResponse.getSuccess()
 
         if successBody.success == false {
+            // If possible, we'll throw an error with the information given by the API.
             let error = await decode(ErrorInfo.self).response
             let errorResponse: ErrorInfo = try error.getSuccess()
             throw APIError.serviceError(errorCode: errorResponse.errorCode, reason: errorResponse.description)

@@ -20,3 +20,5 @@ let defaultAPIDomain = "api.awau.moe"
 let defaultUploadDomain = "owo.whats-th.is"
 /// The default domain used for shortened links.
 let defaultShortenDomain = "awau.moe"
+
+let maxObjectLimit = 1

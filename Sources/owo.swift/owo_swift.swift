@@ -43,9 +43,24 @@ public class OwOSwift {
         ]
     }
 
-    public func getUser() async throws {
-        let user = try await AF.request(route(for: "/users/me"), method: .get, headers: getHeaders()).handle(type: User.self)
-        print(user)
-        print("success!")
+    /// Returns a usable request with proper headers set for a GET request.
+    /// - Parameter routePath: The route to make a GET request to.
+    /// - Returns: A `DataRequest` usable to make the request with.
+    private func getRequest(to routePath: String) -> DataRequest {
+        AF.request(route(for: routePath), method: .get, headers: getHeaders())
+    }
+
+    /// Returns a usable request with proper headers set for a POST request.
+    /// - Parameter routePath: The route to make a POST request to.
+    /// - Parameter multipartForm: Files to be attached to this request.
+    /// - Returns: A `DataRequest` usable to make the request with.
+    private func uploadRequest(to routePath: String, multipartForm: MultipartFormData) -> DataRequest {
+        AF.upload(multipartFormData: multipartForm, to: route(for: routePath), headers: getHeaders())
+    }
+
+    /// Queries the API for information related to the current user.
+    /// - Returns: User account details for the given token
+    public func getUser() async throws -> UserInfo {
+        try await getRequest(to: "/users/me").handle(type: User.self).user
     }
 }
